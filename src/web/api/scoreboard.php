@@ -1,32 +1,34 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
-require_once __DIR__ . '/../../db/example_database.php';
+require_once __DIR__ . '/../../db/database.php';
 
-use \IMSGlobal\LTI;
-$launch = LTI\LTI_Message_Launch::from_cache($_REQUEST['launch_id'], new Example_Database());
-if (!$launch->has_nrps()) {
+use Packback\Lti1p3\LtiMessageLaunch;
+use Packback\Lti1p3\LtiLineitem;
+
+$launch = LtiMessageLaunch::fromCache($_REQUEST['launch_id'], new Lti13Database());
+if (!$launch->hasNrps()) {
     throw new Exception("Don't have names and roles!");
 }
-if (!$launch->has_ags()) {
+if (!$launch->hasAgs()) {
     throw new Exception("Don't have grades!");
 }
-$ags = $launch->get_ags();
+$ags = $launch->getAgs();
 
-$score_lineitem = LTI\LTI_Lineitem::new()
-    ->set_tag('score')
-    ->set_score_maximum(100)
-    ->set_label('Score')
-    ->set_resource_id($launch->get_launch_data()['https://purl.imsglobal.org/spec/lti/claim/resource_link']['id']);
-$scores = $ags->get_grades($score_lineitem);
+$score_lineitem = LtiLineitem::new()
+    ->setTag('score')
+    ->setScoreMaximum(100)
+    ->setLabel('Score')
+    ->setResourceId($launch->getLaunchData()['https://purl.imsglobal.org/spec/lti/claim/resource_link']['id']);
+$scores = $ags->getGrades($score_lineitem);
 
-$time_lineitem = LTI\LTI_Lineitem::new()
-    ->set_tag('time')
-    ->set_score_maximum(999)
-    ->set_label('Time Taken')
-    ->set_resource_id('time'.$launch->get_launch_data()['https://purl.imsglobal.org/spec/lti/claim/resource_link']['id']);
-$times = $ags->get_grades($time_lineitem);
+$time_lineitem = LtiLineitem::new()
+    ->setTag('time')
+    ->setScoreMaximum(999)
+    ->setLabel('Time Taken')
+    ->setResourceId('time' . $launch->getLaunchData()['https://purl.imsglobal.org/spec/lti/claim/resource_link']['id']);
+$times = $ags->getGrades($time_lineitem);
 
-$members = $launch->get_nrps()->get_members();
+$members = $launch->getNrps()->getMembers();
 
 $scoreboard = [];
 

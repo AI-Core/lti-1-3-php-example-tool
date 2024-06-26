@@ -1,22 +1,25 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../db/example_database.php';
+require_once __DIR__ . '/../db/database.php';
 
-use \IMSGlobal\LTI;
-$launch = LTI\LTI_Message_Launch::new(new Example_Database())
+use Packback\Lti1p3\LtiMessageLaunch;
+
+$launch = LtiMessageLaunch::new(new Lti13Database())
     ->validate();
 
-?><link href="static/breakout.css" rel="stylesheet">
+?>
+<link href="static/breakout.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet"><?php
 
-if ($launch->is_deep_link_launch()) {
+if ($launch->isDeepLinkLaunch()) {
     ?>
     <div class="dl-config">
         <h1>Pick a Difficulty</h1>
         <ul>
-            <li><a href="<?= TOOL_HOST ?>/configure.php?diff=easy&launch_id=<?= $launch->get_launch_id(); ?>">Easy</a></li>
-            <li><a href="<?= TOOL_HOST ?>/configure.php?diff=normal&launch_id=<?= $launch->get_launch_id(); ?>">Normal</a></li>
-            <li><a href="<?= TOOL_HOST ?>/configure.php?diff=hard&launch_id=<?= $launch->get_launch_id(); ?>">Hard</a></li>
+            <li><a href="<?= TOOL_HOST ?>/configure.php?diff=easy&launch_id=<?= $launch->getLaunchId(); ?>">Easy</a></li>
+            <li><a href="<?= TOOL_HOST ?>/configure.php?diff=normal&launch_id=<?= $launch->getLaunchId(); ?>">Normal</a>
+            </li>
+            <li><a href="<?= TOOL_HOST ?>/configure.php?diff=hard&launch_id=<?= $launch->getLaunchId(); ?>">Hard</a></li>
         </ul>
     </div>
     <?php
@@ -39,8 +42,8 @@ if ($launch->is_deep_link_launch()) {
 </div>
 <script>
     // Set game difficulty if it has been set in deep linking
-    var curr_diff = "<?= $launch->get_launch_data()['https://purl.imsglobal.org/spec/lti/claim/custom']['difficulty'] ?: 'normal'; ?>";
-    var curr_user_name = "<?= $launch->get_launch_data()['name']; ?>";
-    var launch_id = "<?= $launch->get_launch_id(); ?>";
+    var curr_diff = "<?= $launch->getLaunchData()['https://purl.imsglobal.org/spec/lti/claim/custom']['difficulty'] ?: 'normal'; ?>";
+    var curr_user_name = "<?= $launch->getLaunchData()['name']; ?>";
+    var launch_id = "<?= $launch->getLaunchData(); ?>";
 </script>
 <script type="text/javascript" src="static/breakout.js" charset="utf-8"></script>

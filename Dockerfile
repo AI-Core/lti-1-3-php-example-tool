@@ -1,4 +1,4 @@
-FROM php:7.3.5-apache
+FROM php:8-apache
 
 # COPY ./src /srv/app
 RUN mkdir /srv/app

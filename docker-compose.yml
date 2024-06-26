@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   app:
     build: .
@@ -8,3 +8,5 @@ services:
       - ${BREAKOUT_PORT:-9001}:80
     volumes:
       - ./src:/srv/app
+    stdin_open: true
+    tty: true

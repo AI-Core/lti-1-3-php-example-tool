@@ -51,4 +51,4 @@ class Lti13Database implements IDatabase
             ->setDeploymentId($deployment_id);
     }
 }
-?>`
+?>

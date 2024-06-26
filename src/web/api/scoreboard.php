@@ -1,11 +1,13 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/../../db/database.php';
+require_once __DIR__ . '/../Lti13Cache.php';
+
 
 use Packback\Lti1p3\LtiMessageLaunch;
 use Packback\Lti1p3\LtiLineitem;
 
-$launch = LtiMessageLaunch::fromCache($_REQUEST['launch_id'], new Lti13Database());
+$launch = LtiMessageLaunch::fromCache($_REQUEST['launch_id'], new Lti13Database(), new Lti13Cache());
 if (!$launch->hasNrps()) {
     throw new Exception("Don't have names and roles!");
 }

@@ -5,3 +5,4 @@ src/db/configs/local.json
 src/web/platform/services/ags/*.txt
 .env
 .DS_Store
+cache

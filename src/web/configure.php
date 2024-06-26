@@ -16,4 +16,3 @@ $resource = LtiDeepLinkResource::new()
     ->setTitle('Breakout ' . $_REQUEST['diff'] . ' mode!');
 $launch->getDeepLink()
     ->outputResponseForm([$resource]);
-?>

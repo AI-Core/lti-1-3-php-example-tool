@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
-define("TOOL_HOST", ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?: $_SERVER['REQUEST_SCHEME']) . '://' . $_SERVER['HTTP_HOST']);
 session_start();
+define("TOOL_HOST", ($_SERVER['REQUEST_SCHEME']) . '://' . $_SERVER['HTTP_HOST']);
 
 $_SESSION['iss'] = [];
 $reg_configs = array_diff(scandir(__DIR__ . '/configs'), array('..', '.', '.DS_Store'));
@@ -31,7 +31,6 @@ class Lti13Database implements IDatabase
             ->setAuthLoginUrl($_SESSION['iss'][$issuer]['auth_login_url'])
             ->setClientId($_SESSION['iss'][$issuer]['client_id'])
             ->setKeySetUrl($_SESSION['iss'][$issuer]['key_set_url'])
-            ->setKid($_SESSION['iss'][$issuer]['kid'])
             ->setIssuer($issuer)
             ->setToolPrivateKey($this->privateKey($issuer));
     }
@@ -51,4 +50,3 @@ class Lti13Database implements IDatabase
             ->setDeploymentId($deployment_id);
     }
 }
-?>

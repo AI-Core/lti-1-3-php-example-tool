@@ -10,6 +10,7 @@ use Packback\Lti1p3\LtiMessageLaunch;
 use Packback\Lti1p3\LtiServiceConnector;
 
 header('X-Frame-Options: ALLOWALL');
+error_reporting(E_ERROR | E_PARSE);
 
 $database = new Lti13Database();
 $cache = new Lti13Cache();

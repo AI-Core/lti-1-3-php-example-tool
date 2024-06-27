@@ -15,20 +15,11 @@
     "private_key_file": "/cert_suite_private.key",
     "deployment": ["testdeploy"]
   },
-  "http://localhost:9001": {
-    "client_id": "d42df408-70f5-4b60-8274-6c98d3b9468d",
-    "auth_login_url": "http://localhost:9001/platform/login.php",
-    "auth_token_url": "http://localhost/platform/token.php",
-    "key_set_url": "http://localhost/platform/jwks.php",
-    "private_key_file": "/private.key",
-    "kid": "58f36e10-c1c1-4df0-af8b-85c857d1634f",
-    "deployment": ["8c49a5fa-f955-405e-865f-3d7e959e809f"]
-  },
   "http://localhost:3000": {
     "client_id": "a9061be4-9444-430d-bc5e-bde3d80c44a0",
-    "auth_login_url": " http://localhost:9011/oauth2/authorize?client_id=a9061be4-9444-430d-bc5e-bde3d80c44a0&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A9001 ",
-    "auth_token_url": " http://localhost:9011/oauth2/token ",
-    "key_set_url": " http://localhost:9011/.well-known/jwks.json",
+    "auth_login_url": "http://localhost:9011/oauth2/authorize",
+    "auth_token_url": "http://localhost:9011/oauth2/token ",
+    "key_set_url": "http://localhost:9011/.well-known/jwks.json",
     "private_key_file": "/private.key",
     "deployment": ["00000000-0000-0000-0000-000000000001"]
   }

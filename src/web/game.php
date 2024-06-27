@@ -5,10 +5,21 @@ require_once __DIR__ . '/../Lti13Cache.php';
 require_once __DIR__ . '/../Lti13Cookie.php';
 
 
+use GuzzleHttp\Client;
 use Packback\Lti1p3\LtiMessageLaunch;
+use Packback\Lti1p3\LtiServiceConnector;
 
-$launch = LtiMessageLaunch::new(new Lti13Database(), new Lti13Cache(), new Lti13Cookie())
-    ->validate();
+header('X-Frame-Options: ALLOWALL');
+
+$database = new Lti13Database();
+$cache = new Lti13Cache();
+$cookie = new Lti13Cookie();
+$client = new Client();
+$serviceConnector = new LtiServiceConnector($cache, $client);
+$serviceConnector->setDebuggingMode(true);
+
+$launch = LtiMessageLaunch::new($database, $cache, $cookie, $serviceConnector)
+    ->initialize($_POST);
 
 ?>
 <link href="static/breakout.css" rel="stylesheet">

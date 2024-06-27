@@ -6,9 +6,9 @@ require_once __DIR__ . '/../Lti13Cookie.php';
 
 use Packback\Lti1p3\LtiOidcLogin;
 
-
 $authLoginUrl = LtiOidcLogin::new(new Lti13Database(), new Lti13Cache(), new Lti13Cookie())
-    ->getRedirectUrl(TOOL_HOST . "/game.php", $_POST);
+    ->getRedirectUrl("http://localhost:9001/game.php", $_POST);
+
 
 header('Location: ' . $authLoginUrl, true, 302);
 exit();

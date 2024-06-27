@@ -3,11 +3,23 @@ require_once __DIR__ . '/../vendor/autoload.php';
 session_start();
 define("TOOL_HOST", ($_SERVER['REQUEST_SCHEME']) . '://' . $_SERVER['HTTP_HOST']);
 
+// Add platform in environment variables to session
+$platformIssuer = getenv('PLATFORM_ISSUER');
+$platformClientId = getenv('PLATFORM_CLIENT_ID');
+$platformLoginUrl = getenv('PLATFORM_LOGIN_URL');
+$platformTokenUrl = getenv('PLATFORM_TOKEN_URL');
+$platformJwksUrl = getenv('PLATFORM_JWKS_URL');
+$platformDeploymentId = getenv('PLATFORM_DEPLOYMENT_ID');
+
 $_SESSION['iss'] = [];
-$reg_configs = array_diff(scandir(__DIR__ . '/configs'), array('..', '.', '.DS_Store'));
-foreach ($reg_configs as $key => $reg_config) {
-    $_SESSION['iss'] = array_merge($_SESSION['iss'], json_decode(file_get_contents(__DIR__ . "/configs/$reg_config"), true));
-}
+$_SESSION['iss'][$platformIssuer] = [
+    "client_id" => $platformClientId,
+    "auth_login_url" => $platformLoginUrl,
+    "auth_token_url" => $platformTokenUrl,
+    "key_set_url" => $platformJwksUrl,
+    "private_key_file" => "/private.key",
+    "deployment" => [$platformDeploymentId]
+];
 
 use Packback\Lti1p3\Interfaces\IDatabase;
 use Packback\Lti1p3\LtiRegistration;

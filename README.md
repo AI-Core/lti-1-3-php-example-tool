@@ -1,12 +1,19 @@
 # LTI 1.3 Advantage Demo Tool
+
 This code consists an example tool that utilizes Packbackbooks LTI 1.3 PHP library.
+
+# Usage
+
+This project is intended to be run locally in order to develop LTI capabilities for learning platforms.
 
 # Running The Example Code
 
 ## Setup
+
 The example is all written in PHP, and it also contains a docker compose file for easy setup if you have docker installed.
 
 ### Registration and Deployment
+
 First thing you will need is to configure your registration and deployment in the example code's fake registrations database.
 
 This can be found in the example tool's code at `db/configs/example.json`.
@@ -37,9 +44,11 @@ LTI Launch URL: http://localhost:9001/game.php
 These URLs may vary if you do not use docker-compose to run the tool and instead run it locally.
 
 ### Running in Docker
+
 To run in docker you will need both `docker` and `docker-compose`
 
 To get the examples up and running in docker simply run:
+
 ```
 docker-compose up --build
 ```
